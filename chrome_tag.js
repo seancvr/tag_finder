@@ -6,13 +6,21 @@ let tagData = {}
 // this line failed on a page and the script crashed
 const scriptTagNodeList = document.querySelectorAll("script") 
 
-const getTagId = (url) => {
+function getTagId(url) {
     if (idTagRegex.test(url)) {
         extractedId = url.match(idTagRegex)
         tagIdList.push(extractedId[1])
     } else {
         unmatchedUrlList.push(url)
     }
+}
+
+function renderArray(tags) {
+  let listItems = ""
+  tags.forEach((tag) => {
+    listItems += `<li> ${tag}</li>`
+  })
+  ulEl.innerHTML = listItems
 }
 
 // get googletagmanager src url's
@@ -34,3 +42,5 @@ console.log(unmatchedUrlList)
 tagData.domain = "www.example.com"
 tagData.tags = tagIdList
 console.log(tagData)
+
+renderArray(tagData.tags)
