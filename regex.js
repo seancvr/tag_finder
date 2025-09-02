@@ -38,12 +38,13 @@ srcList = [
     "https://www.googletagmanager.com/gtm.js?id=GTM-WT5GJ7M",
     "https://www.googletagmanager.com/gtm.js?id=GTM-P77HXHX",
     "//www.googletagmanager.com/gtm.js?id=GTM-5NBQVZ5",
-    "https://www.googletagmanager.com/gtag/js?id=G-F2FH9F05GB"
+    "https://www.googletagmanager.com/gtag/js?id=G-F2FH9F05GB",
+    "https://www.googletagmanager.com/gtag/js?id=AW-780970426"
 ]
 
 let gtagIdList = []
 let unmatchedUrlList = []
-idTagRegex = /id=(GTM-[A-Z0-9]+|G-[A-Z0-9]+|UA-[A-Z0-9-]+)(?=&|$)/;
+idTagRegex = /id=(GTM-[A-Z0-9]+|G-[A-Z0-9]+|UA-[A-Z0-9-]+|AW-[A-Z0-9]+)(?=&|$)/;
 
 srcList.forEach(url => {
     if (idTagRegex.test(url)) { // .test() returns true if match
