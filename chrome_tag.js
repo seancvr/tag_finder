@@ -3,27 +3,11 @@ let unmatchedUrlList = []
 idTagRegex = /id=(GTM-[A-Z0-9]+|G-[A-Z0-9]+|UA-[A-Z0-9-]+|AW-[0-9]+)(?=&|$)/;
 let tagData = {}
 
-// this line failed on a page and the script crashed
- 
+const findBtn = document.querySelector("#find-el")
 
-function getTagId(url) {
-    if (idTagRegex.test(url)) {
-        extractedId = url.match(idTagRegex)
-        tagIdList.push(extractedId[1])
-    } else {
-        unmatchedUrlList.push(url)
-    }
-}
-
-function renderArray(tags) {
-  let listItems = ""
-  tags.forEach((tag) => {
-    listItems += `<li> ${tag}</li>`
-  })
-  ulEl.innerHTML = listItems
-}
-
+// scan the home page for google tags
 function findTags() {
+    // this line failed on a page and the script crashed
     const scriptTagNodeList = document.querySelectorAll("script")
     // get googletagmanager src url's
     scriptTagNodeList.forEach(element => {
@@ -38,14 +22,34 @@ function findTags() {
     })
 }
 
+// extract the tag ID from the src url string
+function getTagId(url) {
+    if (idTagRegex.test(url)) {
+        extractedId = url.match(idTagRegex)
+        tagIdList.push(extractedId[1])
+    } else {
+        // catch unmatched tag ID's
+        unmatchedUrlList.push(url)
+    }
+}
 
+// render the tags on the extension html
+function renderArray(tags) {
+    let listItems = ""
+    tags.forEach((tag) => {
+        listItems += `<li> ${tag}</li>`
+    })
+    ulEl.innerHTML = listItems
+}
+
+findBtn.addEventListener("click", function () {
+    findTags()
+    renderArray(tagData.tags)
+})
 
 console.log(tagIdList)
-//capture the tags the regex misses and save for later analysis
 console.log(unmatchedUrlList)
 
 tagData.domain = "www.example.com"
 tagData.tags = tagIdList
 console.log(tagData)
-
-renderArray(tagData.tags)
