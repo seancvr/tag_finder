@@ -3,12 +3,18 @@ let tagData = {domain: "www.example.com"}
 let tagIdList = []
 let unmatchedUrlList = []
 
-const ulEl = document.querySelector("#ul-el")
-const findBtn = document.querySelector("#find-el")
+async function getActiveTabScriptTags() {
+  let [tab] = await chrome.tabs.query({active: true})
+  chrome.scripting.executeScript({
+    target: {tabId: tab.id},
+    func: () => {
+      return document.querySelectorAll("script")
+    }
+  })
 
 function findTags() {
     // this line failed on a page and the script crashed
-    const scriptTagNodeList = document.querySelectorAll("script")
+    const scriptTagNodeList = getActiveTabScriptTags()
     // get googletagmanager src url's
     scriptTagNodeList.forEach(element => {
         srcUrl = element.getAttribute("src")
@@ -21,6 +27,8 @@ function findTags() {
         }
     })
     tagData.tags = tagIdList
+}
+
 }
 
 function getTagId(url) {
@@ -38,10 +46,10 @@ function renderArray(tags) {
     tags.forEach((tag) => {
         listItems += `<li> ${tag}</li>`
     })
-    ulEl.innerHTML = listItems
+    document.querySelector("#ul-el").innerHTML = listItems
 }
 
-findBtn.addEventListener("click", function () {
+document.querySelector("#find-el").addEventListener("click", function () {
     console.log("button clicked")
     findTags()
     console.log(tagData)
