@@ -3,8 +3,10 @@
 // AW-xxxx, DC-xxxx, G-xxxx, GT-xxx, GTM-xxxx, PUB-xxxx and UA-xxx-x
 
 /*
-const idRegex = /id=(GTM-[A-Z0-9]+|G-[A-Z0-9]+|UA-[A-Z0-9-]+)(?=&|$)/;
+Chrome tag formats:
+// AW-xxxx, DC-xxxx, G-xxxx, GT-xxx, GTM-xxxx, PUB-xxxx and UA-xxx-x
 
+Regex:
 GTM-[A-Z0-9]+ matches GTM- followed by one or more (+) uppercase letters/digits.
 G-[A-Z0-9]+ matches G- followed by one or more (+) uppercase letters/digits.
 UA-[A-Z0-9-]+ matches UA- followed by on or more (+) uppercase letters, digits, or dashes.

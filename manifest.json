@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Chrome Extension",
+  "name": "Chrome Tag Finder",
   "version": "1.0",
   "icons": {
     "16": "images/icon-16.png",
