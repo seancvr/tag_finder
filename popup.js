@@ -39,33 +39,33 @@ document.querySelector("#button-el").addEventListener("click", async function() 
   googleTagData.push(pageData)
   
   // Render the tag and page url data
-  renderTagArray(scriptData.srcUrls, scriptData.pageUrl)
+  renderTagArray(document.querySelector("#tag-list"),tagIds, scriptData.pageUrl)
 
   // Render unmated tagID's if any
   if (unmatchedUrlList.length > 0) {
-    renderUnmatchedArray(unmatchedUrlList)
+    renderUnmatchedArray(document.querySelector("#unmatched-list"), unmatchedUrlList)
   }
 })
 
 // render an array on the extension html
-function renderTagArray(list, url) {
-  const tagList = document.querySelector("#tag-list")
-  tagList.textContent = url
+function renderTagArray(element, list, url) {
+  //const tagList = document.querySelector("#tag-list")
+  element.textContent = url
 
   list.forEach((item) => {
     let newListEl = document.createElement("li")
     newListEl.textContent = item
-    tagList.appendChild(newListEl)
+    element.appendChild(newListEl)
   })
 }
 
 // render the unmatched url if there are any
-function renderUnmatchedArray(list) {
-  const unmatchedList = document.querySelector("#unmatched-list")
+function renderUnmatchedArray(element, list) {
+  //const unmatchedList = document.querySelector("#unmatched-list")
 
   list.forEach((item) => {
     let newListEl = document.createElement("li")
     newListEl.textContent = item
-    unmatchedList.appendChild(newListEl)
+    element.appendChild(newListEl)
   })
 }

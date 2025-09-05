@@ -20,7 +20,7 @@ export default function getDOMdata() {
             }
         });
         console.log(srcUrlList) // for debug
-        // return the data to the extension
+        // return array of urls to the extension
         return {
             pageUrl: pageUrl,
             srcUrls: srcUrlList
