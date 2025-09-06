@@ -12,7 +12,7 @@ or the end of the string ($), but does not include them in the match.
 export const idTagRegex = /id=(GTM-[A-Z0-9]+|G-[A-Z0-9]+|UA-[A-Z0-9-]+|AW-[0-9]+)(?=&|$)/
 
 // extract the tag ID from the src url string
-export default function getTagId(url, regex) {
+export function getTagId(url, regex) {
     if (regex.test(url)) {
         let extractedId = url.match(regex)
         return extractedId[1]
