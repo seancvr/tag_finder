@@ -4,6 +4,9 @@ import { renderTagArray, renderUnmatchedArray } from './utils/render.js';
 let googleTagData = []
 let unmatchedUrlList = []
 
+// TODO:
+// get data from local storage when user opens the extension icon tool bar
+
 // add onclick event listener to the button element in popop.html
 document.querySelector("#button-el").addEventListener("click", async function() {
   //get the tab object of the active tab on the active browser window 
@@ -27,7 +30,7 @@ document.querySelector("#button-el").addEventListener("click", async function() 
     return
   }
 
-  // extract tagID's from srcUrls and make a note of the unmatched tags for later analysis
+  // extract tag id's from srcUrls and make a note of the unmatched tags for later analysis
   const tagIds = scriptData.srcUrls.map(url => getTagId(url, idTagRegex)).filter(id => id !== null)
   unmatchedUrlList =  scriptData.srcUrls.filter(url => getTagId(url, idTagRegex) === null)
   console.log(unmatchedUrlList) // for debugging
@@ -38,7 +41,11 @@ document.querySelector("#button-el").addEventListener("click", async function() 
     gtags: tagIds
   }
   googleTagData.push(pageData)
-  
+
+  //TODO:
+  // Persist googleTagData and unmatchedTadList
+  // Save to localStorage or extension storage
+ 
   // Render the tag and page url data
   renderTagArray("tag-list",tagIds, scriptData.pageUrl)
 
