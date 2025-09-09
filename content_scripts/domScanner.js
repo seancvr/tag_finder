@@ -1,5 +1,5 @@
 // scan the home page for googletagmanager urls
-export default function getDOMdata() {
+export default function getPagedata() {
     try {
         // Get the current page URL
         const pageUrl = window.location.href;
@@ -20,7 +20,7 @@ export default function getDOMdata() {
             }
         });
         console.log(srcUrlList) // for debug
-        // return array of urls to the extension
+        
         return {
             pageUrl: pageUrl,
             srcUrls: srcUrlList

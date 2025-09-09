@@ -1,5 +1,5 @@
 import { getTagId, idTagRegex } from './utils/parser.js';
-import getDOMdata from './content_scripts/domScanner.js';
+import getPagedata from './content_scripts/domScanner.js';
 import { renderTagArray, renderUnmatchedArray } from './utils/render.js';
 
 let googleTagData = []
@@ -33,7 +33,7 @@ function storeGoogleTagData(data) {
     .set({ "googleTagData": data })
 }
 
-// add onclick event listener to the button element in popop.html
+// add onclick event listener to the button element
 document.querySelector("#button-el")
   .addEventListener("click", async function () {
     //get the tab object of the active tab on the active browser window 
@@ -43,7 +43,7 @@ document.querySelector("#button-el")
     // execute a script against the active tab
     const result = await chrome.scripting.executeScript({
       target: { tabId: tab.id },
-      function: getDOMdata
+      function: getPagedata
     })
     // get useful data from result object
     const scriptData = result[0].result
@@ -76,9 +76,10 @@ document.querySelector("#button-el")
     try {
       await storeGoogleTagData(googleTagData)
     } catch (err) {
-      console.error("Failed to store googleTagData:", err)
+      console.error("Failed to store googleTagData:")
     }
 
+    //TODO:
     // Update renderTagArray so that it renders a new UL for each storad object
     // may need to start including react here. 
     // Render the tag and page url data

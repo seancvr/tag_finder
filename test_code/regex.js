@@ -62,4 +62,11 @@ console.log(gtagIdList)
 //capture the tags the regex misses and save for later analysis
 console.log(unmatchedUrlList) 
 
+/*
+Here are some unmatched tags to add to regex finder
 
+https://www.googletagmanager.com/gtag/js?id=DC-5566805&cx=c&gtm=4e5980
+https://www.googletagmanager.com/gtag/js?id=DC-9053352&cx=c&gtm=4e5980
+https://www.googletagmanager.com/gtag/js?id=DC-9136827&cx=c&gtm=4e5980
+https://www.googletagmanager.com/gtag/js?id=DC-9001543&cx=c&gtm=4e5980
+*/
