@@ -15,5 +15,5 @@
     "http://*/*",
     "https://*/*"
   ],
-  "permissions": ["scripting", "activeTab"]
+  "permissions": ["scripting", "activeTab", "storage"]
 }

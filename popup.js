@@ -1,17 +1,30 @@
 import {getTagId, idTagRegex } from './utils/parser.js';
 import getDOMdata from './content_scripts/domScanner.js';
 import { renderTagArray, renderUnmatchedArray } from './utils/render.js';
+
 let googleTagData = []
 let unmatchedUrlList = []
 
-// TODO:
-/*
-When extension popup is opened, check persisted storage.
-If 'googleTagData' or 'unmatchedUrlList' have been stored
-  then retrieve data and render it in the popup.html UI
-if not
-  don't render anything
-*/
+// When extension popup is opened, check persisted storage.
+document.addEventListener("DOMContentLoaded", async function() {
+  googleTagData = JSON.parse(loadGoogleTagData())
+  renderTagArray()
+  //TODO:
+  // add listener to check for changes in stored data
+})
+
+// Load data from extension storage
+function loadGoogleTagData() {
+  return chrome.storage.local
+    .get(['googleTagData'])
+    .then(result => result.googleTagData || []);
+}
+
+// save data to extension storage
+function storeGoogleTagData(data) {
+  return chrome.storage.local
+    .set({"googleTagData": JSON.stringify(data)})
+}
 
 // add onclick event listener to the button element in popop.html
 document.querySelector("#button-el")
@@ -50,17 +63,14 @@ document.querySelector("#button-el")
   
   // put useful data in an object and push to googleTagData
   const pageData = {
-    pageUrl: scriptData.pageUrl,
-    gtags: tagIds
+    pageUrl: scriptData.pageUrl, // pageUrl is a string
+    gtags: tagIds // tag Ids is an array of strings.
   }
   googleTagData.push(pageData)
 
-  //TODO:
-  /*
-  Persist googleTagData and unmatchedTadList
-  Save to localStorage or extension storage
-  */
- 
+  // Save Google tage data to local storage
+  storeGoogleTagData(googleTagData)
+  
   // Render the tag and page url data
   renderTagArray("tag-list",tagIds, scriptData.pageUrl)
 
