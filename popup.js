@@ -7,8 +7,8 @@ let unmatchedUrlList = []
 
 // When extension popup is opened, check persisted storage.
 document.addEventListener("DOMContentLoaded", async function() {
-  googleTagData = JSON.parse(loadGoogleTagData())
-  renderTagArray()
+  googleTagData = await loadGoogleTagData()
+  renderTagArray("tag-list",googleTagData[0].gtags, googleTagData[0].pageUrl)
   //TODO:
   // add listener to check for changes in stored data
 })
@@ -23,7 +23,7 @@ function loadGoogleTagData() {
 // save data to extension storage
 function storeGoogleTagData(data) {
   return chrome.storage.local
-    .set({"googleTagData": JSON.stringify(data)})
+    .set({"googleTagData": data})
 }
 
 // add onclick event listener to the button element in popop.html
@@ -50,11 +50,6 @@ document.querySelector("#button-el")
     // early return if error
     return
   }
-
-  // extract tag id's from srcUrls
-  const tagIds = scriptData.srcUrls
-    .map(url => getTagId(url, idTagRegex))
-    .filter(id => id !==null)
   
   // make a note of the unmatched tags for later analysis
   unmatchedUrlList = scriptData.srcUrls
@@ -63,16 +58,22 @@ document.querySelector("#button-el")
   
   // put useful data in an object and push to googleTagData
   const pageData = {
-    pageUrl: scriptData.pageUrl, // pageUrl is a string
-    gtags: tagIds // tag Ids is an array of strings.
+    pageUrl: scriptData.pageUrl,
+    gtags: scriptData.srcUrls // extract tag id's from srcUrls
+            .map(url => getTagId(url, idTagRegex))
+            .filter(id => id !== null)
   }
   googleTagData.push(pageData)
 
   // Save Google tage data to local storage
-  storeGoogleTagData(googleTagData)
+    try {
+    await storeGoogleTagData(googleTagData)
+  } catch (err) {
+    console.error("Failed to store googleTagData:", err)
+  }
   
   // Render the tag and page url data
-  renderTagArray("tag-list",tagIds, scriptData.pageUrl)
+  renderTagArray("tag-list", googleTagData[0].gatgs, googleTagData[0].pageUrl)
 
   // Render unmated tagID's if any
   if (unmatchedUrlList.length > 0) {
