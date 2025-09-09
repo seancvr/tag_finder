@@ -3,15 +3,14 @@ export default function getPagedata() {
     try {
         // Get the current page URL
         const pageUrl = window.location.href;
-        console.log(pageUrl) // for debug
         
         let srcUrlList = [];
-        // Add try-catch since this line failed previously
+        // Added try-catch since this line failed previously
         const scriptTagNodeList = document.querySelectorAll("script");
         // get googletagmanager src urls
         scriptTagNodeList.forEach(element => {
             let srcUrl = element.getAttribute("src");
-
+            
             // if src = '', attr contains null
             if (srcUrl) {
                 if (srcUrl.includes("googletagmanager")) {
@@ -19,6 +18,7 @@ export default function getPagedata() {
                 }
             }
         });
+        console.log(pageUrl) // for debug
         console.log(srcUrlList) // for debug
         
         return {
