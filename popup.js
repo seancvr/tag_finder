@@ -14,7 +14,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     googleTagData = [];
   }
   if (googleTagData.length > 0) {
-    renderTagArray("tag-list", googleTagData[0].gtags, googleTagData[0].pageUrl)
+    renderTagArray(
+      "tag-list", 
+      googleTagData[0].gtags, 
+      googleTagData[0].pageUrl
+    )
   }
   //TODO:
   // add listener to check for changes in stored data
@@ -80,10 +84,15 @@ document.querySelector("#button-el")
     }
 
     //TODO:
-    // Update renderTagArray so that it renders a new UL for each storad object
+    // Update renderTagArray
+    // to deal with multiple pageData objects
     // may need to start including react here. 
     // Render the tag and page url data
-    renderTagArray("tag-list", googleTagData[0].gtags, googleTagData[0].pageUrl)
+    renderTagArray(
+      "tag-list", 
+      googleTagData[0].gtags, 
+      googleTagData[0].pageUrl
+    )
 
     // Render unmated tagID's if any
     if (unmatchedUrlList.length > 0) {
