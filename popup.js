@@ -8,9 +8,11 @@ let unmatchedUrlList = []
 // get data from local storage when user opens the extension icon tool bar
 
 // add onclick event listener to the button element in popop.html
-document.querySelector("#button-el").addEventListener("click", async function() {
+document.querySelector("#button-el")
+  .addEventListener("click", async function() {
   //get the tab object of the active tab on the active browser window 
-  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  const [tab] = await chrome.tabs
+    .query({ active: true, currentWindow: true });
 
   // execute a script against the active tab
   const result = await chrome.scripting.executeScript({
@@ -30,9 +32,14 @@ document.querySelector("#button-el").addEventListener("click", async function() 
     return
   }
 
-  // extract tag id's from srcUrls and make a note of the unmatched tags for later analysis
-  const tagIds = scriptData.srcUrls.map(url => getTagId(url, idTagRegex)).filter(id => id !== null)
-  unmatchedUrlList =  scriptData.srcUrls.filter(url => getTagId(url, idTagRegex) === null)
+  // extract tag id's from srcUrls
+  // make a note of the unmatched tags for later analysis
+  const tagIds = scriptData.srcUrls
+    .map(url => getTagId(url, idTagRegex))
+    .filter(id => id !==null)
+    
+  unmatchedUrlList = scriptData.srcUrls
+    .filter(url => getTagId(url, idTagRegex) === null)
   console.log(unmatchedUrlList) // for debugging
   
   // put useful data in an object and push to googleTagData
