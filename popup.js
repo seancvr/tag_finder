@@ -79,6 +79,8 @@ document.querySelector("#button-el")
       console.error("Failed to store googleTagData:", err)
     }
 
+    // Update renderTagArray so that it renders a new UL for each storad object
+    // may need to start including react here. 
     // Render the tag and page url data
     renderTagArray("tag-list", googleTagData[0].gtags, googleTagData[0].pageUrl)
 
