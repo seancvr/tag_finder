@@ -5,7 +5,13 @@ let googleTagData = []
 let unmatchedUrlList = []
 
 // TODO:
-// get data from local storage when user opens the extension icon tool bar
+/*
+When extension popup is opened, check persisted storage.
+If 'googleTagData' or 'unmatchedUrlList' have been stored
+  then retrieve data and render it in the popup.html UI
+if not
+  don't render anything
+*/
 
 // add onclick event listener to the button element in popop.html
 document.querySelector("#button-el")
@@ -50,8 +56,10 @@ document.querySelector("#button-el")
   googleTagData.push(pageData)
 
   //TODO:
-  // Persist googleTagData and unmatchedTadList
-  // Save to localStorage or extension storage
+  /*
+  Persist googleTagData and unmatchedTadList
+  Save to localStorage or extension storage
+  */
  
   // Render the tag and page url data
   renderTagArray("tag-list",tagIds, scriptData.pageUrl)
