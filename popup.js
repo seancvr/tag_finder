@@ -1,4 +1,4 @@
-import {getTagId, idTagRegex } from './utils/parser.js';
+import { getTagId, idTagRegex } from './utils/parser.js';
 import getDOMdata from './content_scripts/domScanner.js';
 import { renderTagArray, renderUnmatchedArray } from './utils/render.js';
 
@@ -6,10 +6,16 @@ let googleTagData = []
 let unmatchedUrlList = []
 
 // When extension popup is opened, check persisted storage.
-document.addEventListener("DOMContentLoaded", async function() {
-  googleTagData = await loadGoogleTagData()
-  console.log(googleTagData) // for debug
-  renderTagArray("tag-list",googleTagData[0].gtags, googleTagData[0].pageUrl)
+document.addEventListener("DOMContentLoaded", async function () {
+  try {
+    googleTagData = await loadGoogleTagData();
+  } catch (err) {
+    console.error("Failed to load googleTagData:");
+    googleTagData = [];
+  }
+  if (googleTagData.length > 0) {
+    renderTagArray("tag-list", googleTagData[0].gtags, googleTagData[0].pageUrl)
+  }
   //TODO:
   // add listener to check for changes in stored data
 })
@@ -24,60 +30,60 @@ function loadGoogleTagData() {
 // save data to extension storage
 function storeGoogleTagData(data) {
   return chrome.storage.local
-    .set({"googleTagData": data})
+    .set({ "googleTagData": data })
 }
 
 // add onclick event listener to the button element in popop.html
 document.querySelector("#button-el")
-  .addEventListener("click", async function() {
-  //get the tab object of the active tab on the active browser window 
-  const [tab] = await chrome.tabs
-    .query({ active: true, currentWindow: true });
+  .addEventListener("click", async function () {
+    //get the tab object of the active tab on the active browser window 
+    const [tab] = await chrome.tabs
+      .query({ active: true, currentWindow: true });
 
-  // execute a script against the active tab
-  const result = await chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    function: getDOMdata
-  })
-  // get useful data from result object
-  const scriptData = result[0].result
+    // execute a script against the active tab
+    const result = await chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      function: getDOMdata
+    })
+    // get useful data from result object
+    const scriptData = result[0].result
 
-  // Check for errors in the scriptData
-  if (scriptData.error) {
-    console.error("Error:", scriptData.error)
-    // Display error in the UI
-    document.querySelector("#tag-list")
-      .textContent = `Error: ${scriptData.error}`
-    // early return if error
-    return
-  }
-  
-  // make a note of the unmatched tags for later analysis
-  unmatchedUrlList = scriptData.srcUrls
-    .filter(url => getTagId(url, idTagRegex) === null)
-  console.log(unmatchedUrlList) // for debugging
-  
-  // put useful data in an object and push to googleTagData
-  const pageData = {
-    pageUrl: scriptData.pageUrl,
-    gtags: scriptData.srcUrls // extract tag id's from srcUrls
-            .map(url => getTagId(url, idTagRegex))
-            .filter(id => id !== null)
-  }
-  googleTagData.push(pageData)
+    // Check for errors in the scriptData
+    if (scriptData.error) {
+      console.error("Error:", scriptData.error)
+      // Display error in the UI
+      document.querySelector("#tag-list")
+        .textContent = `Error: ${scriptData.error}`
+      // early return if error
+      return
+    }
 
-  // Save Google tag data to local storage
+    // make a note of the unmatched tags for later analysis
+    unmatchedUrlList = scriptData.srcUrls
+      .filter(url => getTagId(url, idTagRegex) === null)
+    console.log(unmatchedUrlList) // for debugging
+
+    // put useful data in an object and push to googleTagData
+    const pageData = {
+      pageUrl: scriptData.pageUrl,
+      gtags: scriptData.srcUrls // extract tag id's from srcUrls
+        .map(url => getTagId(url, idTagRegex))
+        .filter(id => id !== null)
+    }
+    googleTagData.push(pageData)
+
+    // Save Google tag data to local storage
     try {
-    await storeGoogleTagData(googleTagData)
-  } catch (err) {
-    console.error("Failed to store googleTagData:", err)
-  }
-  
-  // Render the tag and page url data
-  renderTagArray("tag-list", googleTagData[0].gatgs, googleTagData[0].pageUrl)
+      await storeGoogleTagData(googleTagData)
+    } catch (err) {
+      console.error("Failed to store googleTagData:", err)
+    }
 
-  // Render unmated tagID's if any
-  if (unmatchedUrlList.length > 0) {
-    renderUnmatchedArray('unmatched-list', unmatchedUrlList)
-  }
-})
+    // Render the tag and page url data
+    renderTagArray("tag-list", googleTagData[0].gtags, googleTagData[0].pageUrl)
+
+    // Render unmated tagID's if any
+    if (unmatchedUrlList.length > 0) {
+      renderUnmatchedArray('unmatched-list', unmatchedUrlList)
+    }
+  })
