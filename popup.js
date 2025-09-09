@@ -26,18 +26,18 @@ document.querySelector("#button-el")
   if (scriptData.error) {
     console.error("Error:", scriptData.error)
     // Display error in the UI
-    const tagList = document.querySelector("#tag-list")
-    tagList.textContent = "Error: " + scriptData.error
+    document.querySelector("#tag-list")
+      .textContent = `Error: ${scriptData.error}`
     // early return if error
     return
   }
 
   // extract tag id's from srcUrls
-  // make a note of the unmatched tags for later analysis
   const tagIds = scriptData.srcUrls
     .map(url => getTagId(url, idTagRegex))
     .filter(id => id !==null)
-    
+  
+  // make a note of the unmatched tags for later analysis
   unmatchedUrlList = scriptData.srcUrls
     .filter(url => getTagId(url, idTagRegex) === null)
   console.log(unmatchedUrlList) // for debugging
