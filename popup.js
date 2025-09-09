@@ -8,6 +8,7 @@ let unmatchedUrlList = []
 // When extension popup is opened, check persisted storage.
 document.addEventListener("DOMContentLoaded", async function() {
   googleTagData = await loadGoogleTagData()
+  console.log(googleTagData) // for debug
   renderTagArray("tag-list",googleTagData[0].gtags, googleTagData[0].pageUrl)
   //TODO:
   // add listener to check for changes in stored data
@@ -65,7 +66,7 @@ document.querySelector("#button-el")
   }
   googleTagData.push(pageData)
 
-  // Save Google tage data to local storage
+  // Save Google tag data to local storage
     try {
     await storeGoogleTagData(googleTagData)
   } catch (err) {
