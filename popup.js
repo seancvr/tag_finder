@@ -1,6 +1,7 @@
 import { getTagId, idTagRegex } from './utils/parser.js';
 import getPagedata from './content_scripts/domScanner.js';
-import { renderTagArray, renderUnmatchedArray, renderGoogleTagData } from './utils/render.js';
+import { renderUnmatchedArray, renderGoogleTagData } from './utils/render.js';
+import { loadGoogleTagData, storeGoogleTagData } from './utils/storage.js';
 
 let googleTagData = []
 let unmatchedUrlList = []
@@ -14,29 +15,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     googleTagData = [];
   }
   if (googleTagData.length > 0) {
-    renderTagArray(
-      "tag-list", 
-      googleTagData[0].gtags, 
-      googleTagData[0].pageUrl
-    )
+    renderGoogleTagData(googleTagData)
   }
   //TODO:
   // add listener to check for changes in stored data
 })
-
-// Load data from extension storage
-function loadGoogleTagData() {
-  // pass [] as default if storage is empty
-  return chrome.storage.local
-    .get({googleTagData: []})
-    .then(result => result.googleTagData);
-}
-
-// save data to extension storage
-function storeGoogleTagData(data) {
-  return chrome.storage.local
-    .set({ "googleTagData": data })
-}
 
 // add onclick event listener to the button element
 document.querySelector("#button-el")
@@ -83,18 +66,6 @@ document.querySelector("#button-el")
     } catch (err) {
       console.error("Failed to store googleTagData:")
     }
-
-    //TODO:
-    // Update renderTagArray
-    // to deal with multiple pageData objects
-    // may need to start including react here. 
-    // Render the tag and page url data
-
-    // renderTagArray(
-    //   "tag-list", 
-    //   googleTagData[0].gtags, 
-    //   googleTagData[0].pageUrl
-    // )
 
     renderGoogleTagData(googleTagData)
 
