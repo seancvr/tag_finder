@@ -1,12 +1,14 @@
-// render an array on the extension html
-export function renderTagArray(containerId, list, url) {
-  const element = document.getElementById(containerId)
-  element.textContent = url
-
-  list.forEach((item) => {
-    let newListEl = document.createElement("li")
-    newListEl.textContent = item
-    element.appendChild(newListEl)
+// render full googleTagData object
+export function renderGoogleTagData(jsonObject) {
+  // take each object
+  jsonObject.forEach(object => {
+    const ulEl = document.createElement('ul')
+    const liEl = document.createElement('li')
+    ulEl.textContent = object.pageUrl
+    liEl.textContent = JSON.stringify(object.gtags)
+    ulEl.appendChild(liEl)
+    document.querySelector('body')
+      .appendChild(ulEl)
   })
 }
 
@@ -14,8 +16,8 @@ export function renderTagArray(containerId, list, url) {
 export function renderUnmatchedArray(containerId, list) {
   const element = document.getElementById(containerId)
   list.forEach((item) => {
-    let newListEl = document.createElement("li")
-    newListEl.textContent = item
-    element.appendChild(newListEl)
+  let newListEl = document.createElement('li')
+  newListEl.textContent = item
+  element.appendChild(newListEl)
   })
 }

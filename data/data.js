@@ -25,3 +25,13 @@ googleTagData = [
     ]
   }
 ]
+
+// render full googleTagData object
+function renderGoogleTagData(jsonObject) {
+ // take each object
+ jsonObject.forEach(object => {
+  console.log(object)
+ })
+}
+
+renderGoogleTagData(googleTagData)

@@ -1,6 +1,6 @@
 import { getTagId, idTagRegex } from './utils/parser.js';
 import getPagedata from './content_scripts/domScanner.js';
-import { renderTagArray, renderUnmatchedArray } from './utils/render.js';
+import { renderTagArray, renderUnmatchedArray, renderGoogleTagData } from './utils/render.js';
 
 let googleTagData = []
 let unmatchedUrlList = []
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   try {
     googleTagData = await loadGoogleTagData();
   } catch (err) {
-    console.error("Failed to load googleTagData:");
+    console.error("Failed to load googleTagData");
     googleTagData = [];
   }
   if (googleTagData.length > 0) {
@@ -89,11 +89,14 @@ document.querySelector("#button-el")
     // to deal with multiple pageData objects
     // may need to start including react here. 
     // Render the tag and page url data
-    renderTagArray(
-      "tag-list", 
-      googleTagData[0].gtags, 
-      googleTagData[0].pageUrl
-    )
+
+    // renderTagArray(
+    //   "tag-list", 
+    //   googleTagData[0].gtags, 
+    //   googleTagData[0].pageUrl
+    // )
+
+    renderGoogleTagData(googleTagData)
 
     // Render unmated tagID's if any
     if (unmatchedUrlList.length > 0) {
