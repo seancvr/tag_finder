@@ -40,9 +40,15 @@ document.querySelector("#button-el")
     if (scriptData.error) {
       console.error("Error:", scriptData.error)
       // Display error in the UI
-      document.querySelector("#tag-list")
+      document.querySelector("h1")
         .textContent = `Error: ${scriptData.error}`
       // early return if error
+      return
+    }
+
+    // if we already scanned this page, early return
+    if (googleTagData.some(obj => obj.pageUrl === scriptData.pageUrl)) {
+      console.log("we already scanned this page") // for debug
       return
     }
 
@@ -59,17 +65,10 @@ document.querySelector("#button-el")
         .filter(id => id !== null)
     }
     googleTagData.push(pageData)
-
-    // Save Google tag data to local storage
-    try {
-      await storeGoogleTagData(googleTagData)
-    } catch (err) {
-      console.error("Failed to store googleTagData:")
-    }
-
+    storeGoogleTagData(googleTagData)
     renderGoogleTagData(googleTagData)
 
-    // Render unmated tagID's if any
+    // Render unmatched gatgs if any
     if (unmatchedUrlList.length > 0) {
       renderUnmatchedArray('unmatched-list', unmatchedUrlList)
     }

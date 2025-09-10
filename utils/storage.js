@@ -7,8 +7,7 @@ export function loadGoogleTagData() {
 }
 
 // save data to extension storage
-export async function storeGoogleTagData(data) {
-  return chrome.storage.local
-    .set({ "googleTagData": data })
+export function storeGoogleTagData(data) {
+  chrome.storage.local.set({ "googleTagData": data })
 }
 

@@ -1,13 +1,16 @@
 // render full googleTagData object
 export function renderGoogleTagData(jsonObject) {
-  // take each object
+  // clear the render-list div
+  document.querySelector('#render-list').innerHTML = ''
+
+  // create the new list items
   jsonObject.forEach(object => {
     const ulEl = document.createElement('ul')
     const liEl = document.createElement('li')
     ulEl.textContent = object.pageUrl
     liEl.textContent = JSON.stringify(object.gtags)
     ulEl.appendChild(liEl)
-    document.querySelector('body')
+    document.querySelector('#render-list')
       .appendChild(ulEl)
   })
 }
