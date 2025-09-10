@@ -62,7 +62,7 @@ document.querySelector("#button-el")
 
     // Save Google tag data to local storage
     try {
-      await storeGoogleTagData(googleTagData)
+      await storeGoogleTagData(pageData)
     } catch (err) {
       console.error("Failed to store googleTagData:")
     }
