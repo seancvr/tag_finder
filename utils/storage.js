@@ -7,12 +7,12 @@ export function loadGoogleTagData() {
 }
 
 // save data to extension storage
-export function storeGoogleTagData(newPageData) {
+export async function storeGoogleTagData(newPageData) {
   // first check if that page data has already been saved
-  dataFromStorage = loadGoogleTagData()
+  const dataFromStorage = await loadGoogleTagData()
 
   // check if array is empty
-  if (dataFromStorage > 0) {
+  if (dataFromStorage.length > 0) {
     // return true if there is a match
     if (
       dataFromStorage.some(item =>
