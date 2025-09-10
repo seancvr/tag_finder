@@ -7,21 +7,8 @@ export function loadGoogleTagData() {
 }
 
 // save data to extension storage
-export async function storeGoogleTagData(newPageData) {
-  // first check if that page data has already been saved
-  const dataFromStorage = await loadGoogleTagData()
-
-  // check if array is empty
-  if (dataFromStorage.length > 0) {
-    // return true if there is a match
-    if (
-      dataFromStorage.some(item =>
-        item.pageUrl === newPageData.pageUrl
-      )
-    ) {
-      return chrome.storage.local
-        .set({ "googleTagData": newPageData })
-    }
-  }
+export async function storeGoogleTagData(data) {
+  return chrome.storage.local
+    .set({ "googleTagData": data })
 }
 
