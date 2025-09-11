@@ -1,7 +1,7 @@
 import { getTagId, idTagRegex } from './utils/parser.js';
 import getPagedata from './content_scripts/domScanner.js';
 import { renderUnmatchedArray, renderGoogleTagData } from './utils/render.js';
-import { loadGoogleTagData, storeGoogleTagData } from './utils/storage.js';
+import { storeData, getDataFromStorage } from './utils/storage.js';
 
 let googleTagData = []
 let unmatchedUrlList = []
@@ -9,14 +9,14 @@ let unmatchedUrlList = []
 // When extension popup is opened, check persisted storage.
 document.addEventListener("DOMContentLoaded", async function () {
   try {
-    googleTagData = await loadGoogleTagData();
+    googleTagData = await getDataFromStorage("googleTagData");
   } catch (err) {
     console.error("loadGoogleTagData failed");
   }
   if (googleTagData.length > 0) {
     renderGoogleTagData(googleTagData)
   }
-  storeGoogleTagData(googleTagData)
+  storeData("googleTagData", googleTagData)
 })
 
 // add onclick event listener to the button element
@@ -39,13 +39,13 @@ document.querySelector("#button-el")
       console.error("Error:", scriptData.error)
       document.querySelector("#script-error")
         .textContent = `Error: ${scriptData.error}`
-      return // early return if error
+      return // early return
     }
 
-    // if we already scanned this page, early return
+    // Check if we already scanned this page
     if (googleTagData.some(obj => obj.pageUrl === scriptData.pageUrl)) {
       console.log("we already scanned this page") // for debug
-      return
+      return // early return
     }
 
     // make a note of the unmatched tags for later analysis
@@ -61,7 +61,7 @@ document.querySelector("#button-el")
         .filter(id => id !== null)
     }
     googleTagData.push(pageData)
-    storeGoogleTagData(googleTagData) // store data
+    storeData("googleTagData", googleTagData)
     renderGoogleTagData(googleTagData) // render data
 
     // Render unmatched gatgs if any
