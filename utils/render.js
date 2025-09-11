@@ -16,8 +16,8 @@ export function renderGoogleTagData(jsonObject) {
   })
 }
 
-// TODO: fix and test unmatched array rendering. 
-// render the unmatched url if there are any
+ 
+// render the unmatched urls if there are any
 export function renderUnmatchedArray(list) {
   const div = document.querySelector('#unmatched-list')
 

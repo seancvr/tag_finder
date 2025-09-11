@@ -6,7 +6,7 @@ import { storeData, getDataFromStorage } from './utils/storage.js';
 let googleTagData = []
 let unmatchedUrlList = []
 
-// When extension popup is opened, check persisted storage.
+// Event listener when extension is opened
 document.addEventListener("DOMContentLoaded", async function () {
   // get and render GoogleTagData 
   try {
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   storeData("unmatchedUrlList", unmatchedUrlList)
 })
 
-// add onclick event listener to the button element
+// Event listener when find tags button is clicked
 document.querySelector("#button-el")
   .addEventListener("click", async function () {
     //get the tab object of the active tab on the active browser window 
@@ -67,7 +67,7 @@ document.querySelector("#button-el")
     // put useful data in an object and push to googleTagData
     const pageData = {
       pageUrl: scriptData.pageUrl,
-      gtags: scriptData.srcUrls // extract tag id's from srcUrls
+      gtags: scriptData.srcUrls 
         .map(url => getTagId(url, idTagRegex))
         .filter(id => id !== null)
     }
