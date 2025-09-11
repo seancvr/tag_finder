@@ -17,8 +17,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   if (googleTagData.length > 0) {
     renderGoogleTagData(googleTagData)
   }
-  //TODO:
-  // add listener to check for changes in stored data
 })
 
 // add onclick event listener to the button element
@@ -65,8 +63,8 @@ document.querySelector("#button-el")
         .filter(id => id !== null)
     }
     googleTagData.push(pageData)
-    storeGoogleTagData(googleTagData)
-    renderGoogleTagData(googleTagData)
+    storeGoogleTagData(googleTagData) // store data
+    renderGoogleTagData(googleTagData) // render data
 
     // Render unmatched gatgs if any
     if (unmatchedUrlList.length > 0) {
