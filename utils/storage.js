@@ -11,3 +11,4 @@ export function storeGoogleTagData(data) {
   chrome.storage.local.set({ "googleTagData": data })
 }
 
+// TODO: Deal with unmatched array storage and fetching

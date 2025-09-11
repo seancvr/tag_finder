@@ -26,7 +26,7 @@ document.querySelector("#button-el")
     const [tab] = await chrome.tabs
       .query({ active: true, currentWindow: true });
 
-    // execute a script against the active tab
+    // execute getPageData against the active tab
     const result = await chrome.scripting.executeScript({
       target: { tabId: tab.id },
       function: getPagedata
@@ -37,11 +37,9 @@ document.querySelector("#button-el")
     // Check for errors in the scriptData
     if (scriptData.error) {
       console.error("Error:", scriptData.error)
-      // Display error in the UI
-      document.querySelector("h1")
+      document.querySelector("#script-error")
         .textContent = `Error: ${scriptData.error}`
-      // early return if error
-      return
+      return // early return if error
     }
 
     // if we already scanned this page, early return
