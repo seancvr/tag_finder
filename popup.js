@@ -8,15 +8,27 @@ let unmatchedUrlList = []
 
 // When extension popup is opened, check persisted storage.
 document.addEventListener("DOMContentLoaded", async function () {
+  // get and render GoogleTagData 
   try {
     googleTagData = await getDataFromStorage("googleTagData");
   } catch (err) {
-    console.error("loadGoogleTagData failed");
+    console.error("Failed to get googleTagData");
   }
   if (googleTagData.length > 0) {
     renderGoogleTagData(googleTagData)
   }
   storeData("googleTagData", googleTagData)
+
+  // get and render unmatchedUrlList
+  try {
+    unmatchedUrlList = await getDataFromStorage("unmatchedUrlList")
+  } catch (err) {
+    console.error("Failed to get unmatchedUrlList")
+  }
+  if (unmatchedUrlList.length > 0) {
+    renderUnmatchedArray(unmatchedUrlList)
+  }
+  storeData("unmatchedUrlList", unmatchedUrlList)
 })
 
 // add onclick event listener to the button element
@@ -44,14 +56,13 @@ document.querySelector("#button-el")
 
     // Check if we already scanned this page
     if (googleTagData.some(obj => obj.pageUrl === scriptData.pageUrl)) {
-      console.log("we already scanned this page") // for debug
       return // early return
     }
 
-    // make a note of the unmatched tags for later analysis
-    unmatchedUrlList = scriptData.srcUrls
+    // Store unmatched tag id's
+    let newUnmatchedUrlList = scriptData.srcUrls
       .filter(url => getTagId(url, idTagRegex) === null)
-    console.log(unmatchedUrlList) // for debugging
+    unmatchedUrlList = unmatchedUrlList.concat(newUnmatchedUrlList)
 
     // put useful data in an object and push to googleTagData
     const pageData = {
@@ -61,11 +72,14 @@ document.querySelector("#button-el")
         .filter(id => id !== null)
     }
     googleTagData.push(pageData)
-    storeData("googleTagData", googleTagData)
-    renderGoogleTagData(googleTagData) // render data
 
-    // Render unmatched gatgs if any
+    // Store data
+    storeData("googleTagData", googleTagData)
+    storeData("unmatchedUrlList", unmatchedUrlList)
+
+    // Render data
+    renderGoogleTagData(googleTagData)
     if (unmatchedUrlList.length > 0) {
-      renderUnmatchedArray('unmatched-list', unmatchedUrlList)
+      renderUnmatchedArray(unmatchedUrlList)
     }
   })

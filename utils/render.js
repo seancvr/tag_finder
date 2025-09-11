@@ -1,7 +1,9 @@
 // render full googleTagData object
 export function renderGoogleTagData(jsonObject) {
+  const div = document.querySelector('#gtag-list')
+  
   // clear the render-list div
-  document.querySelector('#gtag-list').innerHTML = ''
+  div.innerHTML = ''
 
   // create the new list items
   jsonObject.forEach(object => {
@@ -10,18 +12,30 @@ export function renderGoogleTagData(jsonObject) {
     ulEl.textContent = object.pageUrl
     liEl.textContent = JSON.stringify(object.gtags)
     ulEl.appendChild(liEl)
-    document.querySelector('#gtag-list')
-      .appendChild(ulEl)
+    div.appendChild(ulEl)
   })
 }
 
 // TODO: fix and test unmatched array rendering. 
 // render the unmatched url if there are any
-export function renderUnmatchedArray(containerId, list) {
-  const element = document.getElementById(containerId)
-  list.forEach((item) => {
-  let newListEl = document.createElement('li')
-  newListEl.textContent = item
-  element.appendChild(newListEl)
-  })
+export function renderUnmatchedArray(list) {
+  const div = document.querySelector('#unmatched-list')
+
+  // clear unmatched-list div
+  div.innerHTML = ''
+
+  if (list.length >= 0) {
+    // create the new list items
+    const ulEl = document.createElement('ul')
+    ulEl.textContent = 'Unmatched tag list'
+    list.forEach((item) => {
+      const liEl = document.createElement('li')
+      liEl.textContent = item
+      ulEl.appendChild(liEl)
+    })
+    div.appendChild(ulEl)
+  } else {
+    div.innerHTML = `<p>No unmatched tags</p>`
+  }
+    
 }
