@@ -10,7 +10,7 @@ export function renderGoogleTagData(jsonObject) {
     ulEl.textContent = object.pageUrl
     liEl.textContent = JSON.stringify(object.gtags)
     ulEl.appendChild(liEl)
-    document.querySelector('#render-list')
+    document.querySelector('#gtag-list')
       .appendChild(ulEl)
   })
 }
