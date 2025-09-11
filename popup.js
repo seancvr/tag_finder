@@ -11,8 +11,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   try {
     googleTagData = await loadGoogleTagData();
   } catch (err) {
-    console.error("Failed to load googleTagData");
-    googleTagData = [];
+    console.error("loadGoogleTagData failed");
   }
   if (googleTagData.length > 0) {
     renderGoogleTagData(googleTagData)
