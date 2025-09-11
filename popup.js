@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   if (googleTagData.length > 0) {
     renderGoogleTagData(googleTagData)
   }
+  storeGoogleTagData(googleTagData)
 })
 
 // add onclick event listener to the button element
