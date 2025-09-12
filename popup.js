@@ -77,9 +77,7 @@ document.querySelector("#find-tags")
 
     // Render data
     renderGoogleTagData(googleTagData)
-    if (unmatchedUrlList.length > 0) {
-      renderUnmatchedArray(unmatchedUrlList)
-    }
+    renderUnmatchedArray(unmatchedUrlList)
   })
 
 // Clear data event listener
