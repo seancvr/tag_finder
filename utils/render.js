@@ -1,57 +1,33 @@
 // render full googleTagData object
 export function renderGoogleTagData(jsonObject) {
   const div = document.querySelector('#gtag-list')
-  
   // clear the render-list div
   div.innerHTML = ''
 
   // create the new list items
   jsonObject.forEach(object => {
-    const ulEl = document.createElement('ul')
-    const liEl = document.createElement('li')
+    const pEl = document.createElement('p')
     const spanEl = document.createElement('span')
-    spanEl.textContent = object.pageUrl
-    ulEl.appendChild(spanEl)
+    const baseUrl = "https://search.dnslytics.com/search?d=domains&q="
 
     if (object.gtags.length > 0) {
-      liEl.textContent = JSON.stringify(object.gtags)
+      spanEl.textContent = object.pageUrl
+      //make a list of gtag links
+      const linksHtml = object.gtags
+        .map(item => `<a href="${baseUrl}${item}" target="_blank" rel="noopener noreferrer">${item}</a>`)
+        .join(', ') + '.';
+      // sett the p innerHTML to linksHtml
+      pEl.innerHTML = linksHtml;
+      div.appendChild(spanEl)
+      div.appendChild(pEl)
     } else {
-      liEl.textContent = 'No tags found'
+      spanEl.textContent = 'No tags found'
+      div.appendChild(spanEl)
     }
-
-    ulEl.appendChild(liEl)
-    div.appendChild(ulEl)
-  })
-}
-
-// render full googleTagData object
-export function renderGoogleTagDataTwo(jsonObject) {
-  const div = document.querySelector('#gtag-list')
-  
-  // clear the render-list div
-  div.innerHTML = ''
-
-  // create the new list items
-  jsonObject.forEach(object => {
-    const ulEl = document.createElement('ul')
-    const liEl = document.createElement('li')
-    const spanEl = document.createElement('span')
-    spanEl.textContent = object.pageUrl
-    ulEl.appendChild(spanEl)
-
-    if (object.gtags.length > 0) {
-      liEl.textContent = JSON.stringify(object.gtags)
-    } else {
-      liEl.textContent = 'No tags found'
-    }
-
-    ulEl.appendChild(liEl)
-    div.appendChild(ulEl)
   })
 }
 
 
- 
 // render the unmatched urls if there are any
 export function renderUnmatchedArray(list) {
   const div = document.querySelector('#unmatched-list')
@@ -75,4 +51,30 @@ export function renderUnmatchedArray(list) {
   } else {
     div.innerHTML = `<p><b>No unmatched tags</b></p>`
   }
+}
+
+// backup render function in case the main on breaks
+export function backupRenderFunction(jsonObject) {
+  const div = document.querySelector('#gtag-list')
+  
+  // clear the render-list div
+  div.innerHTML = ''
+
+  // create the new list items
+  jsonObject.forEach(object => {
+    const ulEl = document.createElement('ul')
+    const liEl = document.createElement('li')
+    const spanEl = document.createElement('span')
+    spanEl.textContent = object.pageUrl
+    ulEl.appendChild(spanEl)
+
+    if (object.gtags.length > 0) {
+      liEl.textContent = JSON.stringify(object.gtags)
+    } else {
+      liEl.textContent = 'No tags found'
+    }
+
+    ulEl.appendChild(liEl)
+    div.appendChild(ulEl)
+  })
 }
