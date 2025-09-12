@@ -7,7 +7,7 @@ let googleTagData = []
 let unmatchedUrlList = []
 
 // Event listener when extension is opened
-document.addEventListener("DOMContentLoaded", async function () {
+document.addEventListener("DOMContentLoaded", async () => {
   // get and render GoogleTagData 
   try {
     googleTagData = await getDataFromStorage("googleTagData");
@@ -32,8 +32,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 })
 
 // Event listener when find tags button is clicked
-document.querySelector("#button-el")
-  .addEventListener("click", async function () {
+document.querySelector("#find-tags")
+  .addEventListener("click", async () => {
     //get the tab object of the active tab on the active browser window 
     const [tab] = await chrome.tabs
       .query({ active: true, currentWindow: true });
@@ -82,4 +82,22 @@ document.querySelector("#button-el")
     if (unmatchedUrlList.length > 0) {
       renderUnmatchedArray(unmatchedUrlList)
     }
+  })
+
+// Clear data event listener
+document.querySelector("#clear-data")
+  .addEventListener("click", () => {
+    // Clear storage
+    chrome.storage.local.clear(
+      () => console.log("storage cleared")
+    )
+
+    // clear in memory data
+    googleTagData = []
+    unmatchedUrlList = []
+
+    // Clear popup
+    document.querySelector("#gtag-list").innerHTML = ''
+    document.querySelector("#unmatched-list").innerHTML = ''
+    
   })

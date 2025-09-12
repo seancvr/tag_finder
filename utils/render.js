@@ -24,7 +24,7 @@ export function renderUnmatchedArray(list) {
   // clear unmatched-list div
   div.innerHTML = ''
 
-  if (list.length >= 0) {
+  if (list.length > 0) {
     // create the new list items
     const ulEl = document.createElement('ul')
     ulEl.textContent = 'Unmatched tag list'
