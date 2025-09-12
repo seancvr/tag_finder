@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (googleTagData.length > 0) {
     renderGoogleTagData(googleTagData)
   }
-  storeData("googleTagData", googleTagData)
 
   // get and render unmatchedUrlList
   try {
@@ -28,7 +27,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (unmatchedUrlList.length > 0) {
     renderUnmatchedArray(unmatchedUrlList)
   }
-  storeData("unmatchedUrlList", unmatchedUrlList)
 })
 
 // Event listener when find tags button is clicked
@@ -88,9 +86,7 @@ document.querySelector("#find-tags")
 document.querySelector("#clear-data")
   .addEventListener("click", () => {
     // Clear storage
-    chrome.storage.local.clear(
-      () => console.log("storage cleared")
-    )
+    chrome.storage.local.clear()
 
     // clear in memory data
     googleTagData = []
