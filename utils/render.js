@@ -10,7 +10,11 @@ export function renderGoogleTagData(jsonObject) {
     const ulEl = document.createElement('ul')
     const liEl = document.createElement('li')
     ulEl.textContent = object.pageUrl
-    liEl.textContent = JSON.stringify(object.gtags)
+    if (object.gtags.length > 0) {
+      liEl.textContent = JSON.stringify(object.gtags)
+    } else {
+      liEl.textContent = 'No tags found'
+    }
     ulEl.appendChild(liEl)
     div.appendChild(ulEl)
   })
