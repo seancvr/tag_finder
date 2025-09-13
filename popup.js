@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     googleTagData = await getDataFromStorage("googleTagData");
   } catch (err) {
-    console.error("Failed to get googleTagData");
+    console.error("Failed to get googleTagData")
   }
   if (googleTagData.length > 0) {
     renderGoogleTagData(googleTagData)

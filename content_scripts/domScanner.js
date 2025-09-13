@@ -18,15 +18,13 @@ export default function getPagedata() {
                 }
             }
         });
-        console.log(pageUrl) // for debug
-        console.log(srcUrlList) // for debug
         
         return {
             pageUrl: pageUrl,
             srcUrls: srcUrlList
         };
     } catch (error) {
-        console.log(error.message) // for debug
+        console.error("Failed to get page data")
         return { error: error.message };
     }
 }
