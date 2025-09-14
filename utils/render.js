@@ -21,8 +21,10 @@ export function renderGoogleTagData(jsonObject) {
       div.appendChild(spanEl)
       div.appendChild(pEl)
     } else {
-      spanEl.textContent = 'No tags found'
+      pEl.innerHTML = 'No tags found'
+      spanEl.textContent = object.pageUrl
       div.appendChild(spanEl)
+      div.appendChild(pEl)
     }
   })
 }
