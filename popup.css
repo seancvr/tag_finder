@@ -9,7 +9,6 @@
   box-sizing: border-box;
 }
 
-
 body {
   background: var(--color-background);
   color: var(--color-text);
@@ -18,7 +17,7 @@ body {
   font-size: .8rem;
   line-height: 1rem;
 	margin: 1rem;
-  overflow: hidden;
+  overflow: visible;
   min-width: 26rem;
   max-width: 34rem;
 }
@@ -49,4 +48,13 @@ button:hover {
 span {
   font-weight: bold;
 }
+
+/* From the robot */
+#gtag-list span,
+#unmatched-list span {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+
 
