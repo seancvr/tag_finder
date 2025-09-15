@@ -2,6 +2,7 @@ import { getTagId, idTagRegex } from './utils/parser.js';
 import getPagedata from './content_scripts/domScanner.js';
 import { renderUnmatchedArray, renderGoogleTagData } from './utils/render.js';
 import { storeData, getDataFromStorage } from './utils/storage.js';
+import { exportData } from './utils/export.js';
 
 let googleTagData = []
 let unmatchedUrlList = []
@@ -94,4 +95,19 @@ document.querySelector("#clear-data")
     document.querySelector("#gtag-list").innerHTML = ''
     document.querySelector("#unmatched-list").innerHTML = ''
     
+  })
+
+// Export data button
+document.querySelector('#export-data')
+  .addEventListener("click", async () => {
+    try {
+      googleTagData = await getDataFromStorage("googleTagData");
+    } catch (err) {
+      console.error("Failed to get googleTagData")
+    }
+    if (googleTagData.length > 0) {
+      renderGoogleTagData(googleTagData)
+    }
+
+    exportData(googleTagData, "tagData")
   })
