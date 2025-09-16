@@ -10,7 +10,7 @@ This is a prototype chrome extension app to demomstrate how [Google tags](https:
 - A [Blob](https://developer.mozilla.org/en-US/docs/Web/API/Blob) object is used to create a function to export the data to JSON if needed.
 
 ### Usage
-**Git clone** the repo, and then follow istructions on [google documentation](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world) to load an upacked extension.
+**Git clone** the repo, and then follow instructions on [google documentation](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world) to load an upacked extension.
 
 ### Possible improvements
 
