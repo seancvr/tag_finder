@@ -111,3 +111,25 @@ document.querySelector('#export-data')
 
     exportData(googleTagData, "tagData")
   })
+
+
+  // register event handler for any clicks inside gtag-list element
+  // click within gtag-list will bubble up and invoke the handler
+const gtagList = document.querySelector("#gtag-list")
+gtagList.querySelector("click", (e) => {
+    // finds the closest .remove-entry element to the click event
+    const btn = e.target.closest(".remove-entry")
+    // ignore clicks on buttons not inside gtag-list
+    if (!btn || !gtagList.contains(btn)) {return}
+
+    const url = btn.getAttribute("data-url")
+    if (!url) {return}
+
+    console.log(`button ${url} was clicked`)
+
+    // remove entry from tagData
+    // removeEntry(url)
+
+    // re-render the ui
+    // renderTagData(tagData)
+  })

@@ -13,7 +13,7 @@ export function renderGoogleTagData(jsonObject) {
     // create remove entry button
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.id = 'remove-entry';
+    btn.className = 'remove-entry';
     btn.setAttribute('data-url', object.pageUrl);
     btn.title = 'Remove entry';
     btn.textContent = '-'; // small icon-like label
