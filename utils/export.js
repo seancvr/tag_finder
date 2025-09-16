@@ -18,6 +18,6 @@ export const exportData = (obj, filename) => {
   a.click()
 
   // dom clean-up
-  document.removeChild(a)
+  document.body.removeChild(a)
   URL.revokeObjectURL(url)
 }
