@@ -1,5 +1,5 @@
 // render full googleTagData object
-export function renderGoogleTagData(jsonObject) {
+export function renderTagData(jsonObject) {
   const div = document.querySelector('#gtag-list')
   // clear the render-list div
   div.innerHTML = ''

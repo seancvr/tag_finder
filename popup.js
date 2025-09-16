@@ -1,22 +1,22 @@
 import { getTagId, idTagRegex } from './utils/parser.js';
 import getPagedata from './content_scripts/domScanner.js';
-import { renderUnmatchedArray, renderGoogleTagData } from './utils/render.js';
+import { renderUnmatchedArray, renderTagData } from './utils/render.js';
 import { storeData, getDataFromStorage } from './utils/storage.js';
 import { exportData } from './utils/export.js';
 
-let googleTagData = []
+let tagData = []
 let unmatchedUrlList = []
 
 // Event listener when extension is opened
 document.addEventListener("DOMContentLoaded", async () => {
-  // get and render GoogleTagData 
+  // get and render tagData 
   try {
-    googleTagData = await getDataFromStorage("googleTagData");
+    tagData = await getDataFromStorage("tagData");
   } catch (err) {
-    console.error("Failed to get googleTagData")
+    console.error("Failed to get tagData")
   }
-  if (googleTagData.length > 0) {
-    renderGoogleTagData(googleTagData)
+  if (tagData.length > 0) {
+    renderTagData(tagData)
   }
 
   // get and render unmatchedUrlList
@@ -54,7 +54,7 @@ document.querySelector("#find-tags")
     }
 
     // Check if we already scanned this page
-    if (googleTagData.some(obj => obj.pageUrl === scriptData.pageUrl)) {
+    if (tagData.some(obj => obj.pageUrl === scriptData.pageUrl)) {
       return // early return
     }
 
@@ -63,21 +63,21 @@ document.querySelector("#find-tags")
       .filter(url => getTagId(url, idTagRegex) === null)
     unmatchedUrlList = unmatchedUrlList.concat(newUnmatchedUrlList)
 
-    // put useful data in an object and push to googleTagData
+    // put useful data in an object and push to tagData
     const pageData = {
       pageUrl: scriptData.pageUrl,
       gtags: scriptData.srcUrls 
         .map(url => getTagId(url, idTagRegex))
         .filter(id => id !== null)
     }
-    googleTagData.push(pageData)
+    tagData.push(pageData)
 
     // Store data
-    storeData("googleTagData", googleTagData)
+    storeData("tagData", tagData)
     storeData("unmatchedUrlList", unmatchedUrlList)
 
     // Render data
-    renderGoogleTagData(googleTagData)
+    renderTagData(tagData)
     renderUnmatchedArray(unmatchedUrlList)
   })
 
@@ -88,7 +88,7 @@ document.querySelector("#clear-data")
     chrome.storage.local.clear()
 
     // clear in memory data
-    googleTagData = []
+    tagData = []
     unmatchedUrlList = []
 
     // Clear popup
@@ -101,35 +101,34 @@ document.querySelector("#clear-data")
 document.querySelector('#export-data')
   .addEventListener("click", async () => {
     try {
-      googleTagData = await getDataFromStorage("googleTagData");
+      tagData = await getDataFromStorage("tagData");
     } catch (err) {
-      console.error("Failed to get googleTagData")
+      console.error("Failed to get tagData")
     }
-    if (googleTagData.length > 0) {
-      renderGoogleTagData(googleTagData)
+    if (tagData.length > 0) {
+      renderTagData(tagData)
     }
 
-    exportData(googleTagData, "tagData")
+    exportData(tagData, "tagData")
   })
 
 
-  // register event handler for any clicks inside gtag-list element
-  // click within gtag-list will bubble up and invoke the handler
+// register event handler for any clicks inside gtag-list element
+// click within gtag-list will bubble up and invoke the handler
 const gtagList = document.querySelector("#gtag-list")
 gtagList.querySelector("click", (e) => {
-    // finds the closest .remove-entry element to the click event
-    const btn = e.target.closest(".remove-entry")
-    // ignore clicks on buttons not inside gtag-list
-    if (!btn || !gtagList.contains(btn)) {return}
+  console.log(`button was clicked`)
+  // finds the closest .remove-entry element to the click event
+  const btn = e.target.closest(".remove-entry")
+  // ignore clicks on buttons not inside gtag-list
+  if (!btn || !gtagList.contains(btn)) { return }
 
-    const url = btn.getAttribute("data-url")
-    if (!url) {return}
+  const url = btn.getAttribute("data-url")
+  if (!url) { return }
 
-    console.log(`button ${url} was clicked`)
+  // remove entry from tagData
+  // removeEntry(url)
 
-    // remove entry from tagData
-    // removeEntry(url)
-
-    // re-render the ui
-    // renderTagData(tagData)
-  })
+  // re-render the ui
+  // renderTagData(tagData)
+})
