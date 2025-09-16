@@ -1,6 +1,6 @@
 /*
 Chrome tag formats:
-// AW-xxxx, DC-xxxx, G-xxxx, GT-xxx, GTM-xxxx, PUB-xxxx and UA-xxx-x
+AW-xxxx, DC-xxxx, G-xxxx, GT-xxx, GTM-xxxx, PUB-xxxx and UA-xxx-x
 
 Regex:
 GTM-[A-Z0-9]+ matches GTM- followed by one or more (+) uppercase letters/digits.

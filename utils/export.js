@@ -1,24 +1,23 @@
 // function to export data to JSON
-
 export const exportData = (obj, filename) => {
-  //create blob object stored tag data
+  //create blob object to store tagData
   const blob = new Blob([JSON.stringify(obj, null, 2)],  {
     type: 'application/json'
   })
-  // turn the blob object into a url
+  // create url containing blob data
   const url = URL.createObjectURL(blob)
   // create anchor element
   const a = document.createElement('a')
-  // set the hrf of the anchor to the blob url
+  // set the href of the anchor to the blob url
   a.href = url
-  // set the downlload name to the filename
+  // set the download filename
   a.download = `${filename}.json`
-  // append to document
+  // append anchor to document
   document.body.appendChild(a)
-  // programatically click the a elemement to trigger download
+  // trigger download
   a.click()
 
-  // clean up
+  // dom clean-up
   document.removeChild(a)
   URL.revokeObjectURL(url)
 }
