@@ -1,22 +1,20 @@
 // render full googleTagData object
 export function renderTagData(jsonObject) {
   const div = document.querySelector('#gtag-list')
-  // clear the render-list div
+  // clear gtag-list div
   div.innerHTML = ''
 
   // create the new list items
   jsonObject.forEach(object => {
+    const baseUrl = "https://search.dnslytics.com/search?d=domains&q="
     const pEl = document.createElement('p')
     const spanEl = document.createElement('span')
-    const baseUrl = "https://search.dnslytics.com/search?d=domains&q="
-
+    
     // create remove entry button
     const btn = document.createElement('button');
-    btn.type = 'button';
     btn.className = 'remove-entry';
     btn.setAttribute('data-url', object.pageUrl);
-    btn.title = 'Remove entry';
-    btn.textContent = '-'; // small icon-like label
+    btn.textContent = '-';
 
     if (object.gtags.length > 0) {
       spanEl.textContent = object.pageUrl
@@ -24,7 +22,7 @@ export function renderTagData(jsonObject) {
       const linksHtml = object.gtags
         .map(item => `<a href="${baseUrl}${item}" target="_blank" rel="noopener noreferrer">${item}</a>`)
         .join(', ') + '.';
-      // sett the p innerHTML to linksHtml
+      // set the p innerHTML to linksHtml
       pEl.innerHTML = linksHtml;
       div.appendChild(spanEl)
       div.appendChild(btn)
@@ -40,7 +38,7 @@ export function renderTagData(jsonObject) {
 }
 
 
-// render the unmatched urls if there are any
+// render the unmatched urls if any
 export function renderUnmatchedList(list) {
   const div = document.querySelector('#unmatched-list')
 
@@ -63,30 +61,4 @@ export function renderUnmatchedList(list) {
   } else {
     div.innerHTML = `<p><b>No unmatched tags</b></p>`
   }
-}
-
-// backup render function in case the main on breaks
-export function backupRenderFunction(jsonObject) {
-  const div = document.querySelector('#gtag-list')
-  
-  // clear the render-list div
-  div.innerHTML = ''
-
-  // create the new list items
-  jsonObject.forEach(object => {
-    const ulEl = document.createElement('ul')
-    const liEl = document.createElement('li')
-    const spanEl = document.createElement('span')
-    spanEl.textContent = object.pageUrl
-    ulEl.appendChild(spanEl)
-
-    if (object.gtags.length > 0) {
-      liEl.textContent = JSON.stringify(object.gtags)
-    } else {
-      liEl.textContent = 'No tags found'
-    }
-
-    ulEl.appendChild(liEl)
-    div.appendChild(ulEl)
-  })
 }

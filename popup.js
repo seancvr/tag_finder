@@ -62,7 +62,7 @@ document.querySelector("#find-tags")
       .filter(url => getTagId(url, idTagRegex) === null)
     unmatchedUrlList = unmatchedUrlList.concat(newUnmatchedUrlList)
 
-    // put useful data in an object and push to tagData
+    // Format useful data as object and push to tagData
     const pageData = {
       pageUrl: scriptData.pageUrl,
       gtags: scriptData.srcUrls 
@@ -80,7 +80,8 @@ document.querySelector("#find-tags")
     renderUnmatchedList(unmatchedUrlList)
   })
 
-// Clear data event listener
+
+// Clear data button
 document.querySelector("#clear-data")
   .addEventListener("click", () => {
     // Clear storage
@@ -90,10 +91,9 @@ document.querySelector("#clear-data")
     tagData = []
     unmatchedUrlList = []
 
-    // Clear popup
+    // Clear popup html
     document.querySelector("#gtag-list").innerHTML = ''
     document.querySelector("#unmatched-list").innerHTML = ''
-    
   })
 
 // Export data button
@@ -112,27 +112,29 @@ document.querySelector("#export-data")
   })
 
 
-// register event handler for any clicks inside gtag-list element
-// click event within gtag-list will bubble up and invoke the handler
+// Remove single entry '-' button
+/* 
+Registers an event handler for any clicks inside gtag-list element
+click events (e) within the gtag-list will bubble up and invoke the handler 
+*/
 const gtagList = document.querySelector("#gtag-list")
 gtagList.addEventListener("click", async (e) => {
-  // finds the closest .remove-entry element to the click event
+  // finds the closest .remove-entry element to the click event (e)
   const btn = e.target.closest(".remove-entry")
   // ignore clicks on buttons not inside gtag-list
-  // maybe redundant: test
   if (!btn || !gtagList.contains(btn)) { return }
 
   const url = btn.getAttribute("data-url")
   if (!url) { return }
 
-  // get data from storage
+  // get tagData from storage
   try {
     tagData = await getDataFromStorage("tagData");
   } catch (err) {
     console.error("Failed to get tagData")
   }
 
-  // remove entry from tagData
+  // remove seleted entry from tagData in memory
   tagData = tagData.filter(
     obj => obj.pageUrl !== url
   )
@@ -140,7 +142,7 @@ gtagList.addEventListener("click", async (e) => {
   // store updated data
   storeData("tagData", tagData)
 
-  // re-render the ui
+  // re-render data
   renderTagData(tagData)
   // clear unmatched list incase its still open
   document.querySelector("#unmatched-list").innerHTML = ''
