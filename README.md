@@ -26,3 +26,4 @@ The event listener setup is outside any initialization function, which works but
 There is probably too much clearing and re-rendering of the DOM which could be made more effiecient.
 8. **UX/UI**:
 UI is very minimal since it's just a demo. Might be worth implementing some front end libraries like React. Manual DOM manipulation can become tedious with more complicated UI's. 
+
