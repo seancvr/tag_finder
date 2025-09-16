@@ -45,8 +45,18 @@ button:hover {
     background-color: var(--color-secondary)
 }
 
+#remove-entry {
+  padding: 0.1rem 0.3rem;
+  border: 1px solid black;
+  border-radius: 0.2rem;
+  text-align: center;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
 span {
   font-weight: bold;
+  padding: 0.5rem;
 }
 
 /* From the robot */

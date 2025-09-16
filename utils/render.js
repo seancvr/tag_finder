@@ -10,6 +10,14 @@ export function renderGoogleTagData(jsonObject) {
     const spanEl = document.createElement('span')
     const baseUrl = "https://search.dnslytics.com/search?d=domains&q="
 
+    // create remove entry button
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.id = 'remove-entry';
+    btn.setAttribute('data-url', object.pageUrl);
+    btn.title = 'Remove entry';
+    btn.textContent = '-'; // small icon-like label
+
     if (object.gtags.length > 0) {
       spanEl.textContent = object.pageUrl
       //make a list of gtag links
@@ -19,11 +27,13 @@ export function renderGoogleTagData(jsonObject) {
       // sett the p innerHTML to linksHtml
       pEl.innerHTML = linksHtml;
       div.appendChild(spanEl)
+      div.appendChild(btn)
       div.appendChild(pEl)
     } else {
       pEl.innerHTML = 'No tags found'
       spanEl.textContent = object.pageUrl
       div.appendChild(spanEl)
+      div.appendChild(btn)
       div.appendChild(pEl)
     }
   })
