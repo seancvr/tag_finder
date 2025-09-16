@@ -41,7 +41,7 @@ export function renderTagData(jsonObject) {
 
 
 // render the unmatched urls if there are any
-export function renderUnmatchedArray(list) {
+export function renderUnmatchedList(list) {
   const div = document.querySelector('#unmatched-list')
 
   // clear unmatched-list div

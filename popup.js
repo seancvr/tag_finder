@@ -1,13 +1,13 @@
 import { getTagId, idTagRegex } from './utils/parser.js';
 import getPagedata from './content_scripts/domScanner.js';
-import { renderUnmatchedArray, renderTagData } from './utils/render.js';
+import { renderUnmatchedList, renderTagData } from './utils/render.js';
 import { storeData, getDataFromStorage } from './utils/storage.js';
 import { exportData } from './utils/export.js';
 
 let tagData = []
 let unmatchedUrlList = []
 
-// Event listener when extension is opened
+// Load and render data when extension is opened
 document.addEventListener("DOMContentLoaded", async () => {
   // get and render tagData 
   try {
@@ -26,11 +26,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Failed to get unmatchedUrlList")
   }
   if (unmatchedUrlList.length > 0) {
-    renderUnmatchedArray(unmatchedUrlList)
+    renderUnmatchedList(unmatchedUrlList)
   }
 })
 
-// Event listener when find tags button is clicked
+// Find tags button
 document.querySelector("#find-tags")
   .addEventListener("click", async () => {
     //get the tab object of the active tab on the active browser window 
@@ -47,18 +47,17 @@ document.querySelector("#find-tags")
 
     // Check for errors in the scriptData
     if (scriptData.error) {
-      console.error("Error:", scriptData.error)
       document.querySelector("#script-error")
         .textContent = `Error: ${scriptData.error}`
-      return // early return
+      return
     }
 
-    // Check if we already scanned this page
+    // Check if webpage was already scanned
     if (tagData.some(obj => obj.pageUrl === scriptData.pageUrl)) {
-      return // early return
+      return
     }
 
-    // Store unmatched tag id's
+    // Catch and store unmatched tag urls
     let newUnmatchedUrlList = scriptData.srcUrls
       .filter(url => getTagId(url, idTagRegex) === null)
     unmatchedUrlList = unmatchedUrlList.concat(newUnmatchedUrlList)
@@ -78,7 +77,7 @@ document.querySelector("#find-tags")
 
     // Render data
     renderTagData(tagData)
-    renderUnmatchedArray(unmatchedUrlList)
+    renderUnmatchedList(unmatchedUrlList)
   })
 
 // Clear data event listener

@@ -1,13 +1,12 @@
 // scan the home page for googletagmanager urls
 export default function getPagedata() {
     try {
-        // Get the current page URL
+        // Get the current page url
         const pageUrl = window.location.href;
         
-        let srcUrlList = [];
-        // Added try-catch since this line failed previously
-        const scriptTagNodeList = document.querySelectorAll("script");
         // get googletagmanager src urls
+        let srcUrlList = [];
+        const scriptTagNodeList = document.querySelectorAll("script");
         scriptTagNodeList.forEach(element => {
             let srcUrl = element.getAttribute("src");
             
@@ -19,6 +18,7 @@ export default function getPagedata() {
             }
         });
         
+        // return data to extension context
         return {
             pageUrl: pageUrl,
             srcUrls: srcUrlList
