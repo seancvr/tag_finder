@@ -98,7 +98,7 @@ document.querySelector("#clear-data")
   })
 
 // Export data button
-document.querySelector('#export-data')
+document.querySelector("#export-data")
   .addEventListener("click", async () => {
     try {
       tagData = await getDataFromStorage("tagData");
@@ -114,21 +114,35 @@ document.querySelector('#export-data')
 
 
 // register event handler for any clicks inside gtag-list element
-// click within gtag-list will bubble up and invoke the handler
+// click event within gtag-list will bubble up and invoke the handler
 const gtagList = document.querySelector("#gtag-list")
-gtagList.querySelector("click", (e) => {
-  console.log(`button was clicked`)
+gtagList.addEventListener("click", async (e) => {
   // finds the closest .remove-entry element to the click event
   const btn = e.target.closest(".remove-entry")
   // ignore clicks on buttons not inside gtag-list
+  // maybe redundant: test
   if (!btn || !gtagList.contains(btn)) { return }
 
   const url = btn.getAttribute("data-url")
   if (!url) { return }
 
+  // get data from storage
+  try {
+    tagData = await getDataFromStorage("tagData");
+  } catch (err) {
+    console.error("Failed to get tagData")
+  }
+
   // remove entry from tagData
-  // removeEntry(url)
+  tagData = tagData.filter(
+    obj => obj.pageUrl !== url
+  )
+
+  // store updated data
+  storeData("tagData", tagData)
 
   // re-render the ui
-  // renderTagData(tagData)
+  renderTagData(tagData)
+  // clear unmatched list incase its still open
+  document.querySelector("#unmatched-list").innerHTML = ''
 })
