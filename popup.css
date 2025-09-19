@@ -1,5 +1,5 @@
 :root {
-  --color-background: white;
+  --color-background: whitesmoke;
   --color-primary: #4608ad;
   --color-secondary: #fafafa;
   --color-text: #4a4a4a;
@@ -20,8 +20,34 @@ body {
   overflow: visible;
   min-width: 26rem;
   max-width: 34rem;
+  display: block;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
+h1 {
+  text-align: center;
+  width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-div {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+span {
+  font-weight: bold;
+  padding: 0.5rem;
+}
+
+p {
+  padding: 0.5rem;
+}
 a {
   color: var(--color-primary);
   outline: none;
@@ -34,8 +60,8 @@ a:focus, a:hover {
 
 button {
   padding: 0.5rem 1rem;
-  border: 1px solid black;
-  border-radius: 0.2rem;
+  border: 1px solid var(--color-text);
+  border-radius: 1rem;
   text-align: center;
   transition-duration: 0.4s;
   cursor: pointer;
@@ -47,16 +73,11 @@ button:hover {
 
 .remove-entry {
   padding: 0.1rem 0.3rem;
-  border: 1px solid black;
-  border-radius: 0.2rem;
+  border: 1px solid var(--color-text);
+  border-radius: 0.5rem;
   text-align: center;
   transition-duration: 0.4s;
   cursor: pointer;
-}
-
-span {
-  font-weight: bold;
-  padding: 0.5rem;
 }
 
 /* From the robot */
