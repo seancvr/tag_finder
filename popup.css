@@ -29,8 +29,7 @@ h1 {
   text-align: center;
   width: 100%;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
 }
 
 .btn-div {
@@ -48,13 +47,15 @@ span {
 p {
   padding: 0.5rem;
 }
+
 a {
   color: var(--color-primary);
   outline: none;
   text-decoration: none;
 }
 
-a:focus, a:hover {
+a:focus, 
+a:hover {
   text-decoration: underline;
 }
 
@@ -68,7 +69,7 @@ button {
 }
 
 button:hover {
-    background-color: var(--color-secondary)
+    background-color: var(--color-secondary);
 }
 
 .remove-entry {
