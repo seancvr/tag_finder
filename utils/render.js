@@ -14,7 +14,7 @@ export function renderTagData(jsonObject) {
     const btn = document.createElement('button');
     btn.className = 'remove-entry';
     btn.setAttribute('data-url', object.pageUrl);
-    btn.textContent = '-';
+    btn.textContent = 'x';
 
     if (object.gtags.length > 0) {
       spanEl.textContent = object.pageUrl
