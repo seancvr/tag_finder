@@ -17,7 +17,7 @@ This is a prototype chrome extension app to demomstrate how [Google tags](https:
 This is just a simple prototype for demo purposes, but possible future improvements could include:
 
 1. **State Management**:
-State in maintained using global variables (tagData, unmatchedUrlList) and also browser storage. A more consistent state management approach could avoid sync issues.
+State is maintained using global variables (tagData, unmatchedUrlList) and also browser storage. A more consistent state management approach could avoid sync issues.
 3. **Link Handling**:
 Since anchor tags are created via innerHTML, they don't function well in incognito browsers. Could use Chrome's tabs API for links to ensure they open correctly in incognito mode.
 5. **Code Structure**:
