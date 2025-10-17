@@ -12,6 +12,10 @@ This is a prototype chrome extension app to demomstrate how [Google tags](https:
 ### Usage
 **Git clone** the repo, and then follow instructions on [google documentation](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world) to load an unpacked extension.
 
+<p align="center">
+  <img src="pictures/tag_finder_screenshot.png" width="100%" height="50%" title="tag_finder_gui">
+</p>
+
 ### Possible improvements
 
 This is just a simple prototype for demo purposes, but possible future improvements could include:
