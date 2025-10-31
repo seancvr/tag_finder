@@ -1,6 +1,6 @@
-[
+export const tagData = [
   {
-    "gtags": [
+    gtags: [
       "G-GK1NB7HX40",
       "DC-5566805",
       "DC-9053352",
@@ -20,43 +20,32 @@
       "AW-613841115",
       "AW-990886827",
       "AW-975802516",
-      "GTM-MKV6"
+      "GTM-MKV6",
     ],
-    "pageUrl": "https://www.fiverr.com/"
+    pageUrl: "https://www.fiverr.com/",
   },
   {
-    "gtags": [
-      "UA-98105905-1",
-      "GT-K8D5ZX2",
-      "GTM-NBMK8NJ",
-      "GT-K8D5ZX2"
-    ],
-    "pageUrl": "https://www.oann.com/"
+    gtags: ["UA-98105905-1", "GT-K8D5ZX2", "GTM-NBMK8NJ", "GT-K8D5ZX2"],
+    pageUrl: "https://www.oann.com/",
   },
   {
-    "gtags": [
+    gtags: [
       "DC-4704202",
       "AW-940416625",
       "AW-967411044",
       "AW-1000940809",
       "AW-945306123",
       "AW-946526103",
-      "GTM-P6HT97"
+      "GTM-P6HT97",
     ],
-    "pageUrl": "https://www.zillow.com/"
+    pageUrl: "https://www.zillow.com/",
   },
   {
-    "gtags": [
-      "G-2P6Q8PGG16",
-      "GTM-46MK"
-    ],
-    "pageUrl": "https://www.airbnb.com/"
+    gtags: ["G-2P6Q8PGG16", "GTM-46MK"],
+    pageUrl: "https://www.airbnb.com/",
   },
   {
-    "gtags": [
-      "AW-780970426",
-      "G-NW9WX3ZPEG"
-    ],
-    "pageUrl": "https://www.foxnews.com/"
-  }
-]
+    gtags: ["AW-780970426", "G-NW9WX3ZPEG"],
+    pageUrl: "https://www.foxnews.com/",
+  },
+];
