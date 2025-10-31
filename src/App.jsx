@@ -14,7 +14,7 @@ export default function App() {
   return (
     <>
       <Header />
-      {tagDataList}
+      <main className="tagData-container">{tagDataList}</main>
     </>
   );
 }

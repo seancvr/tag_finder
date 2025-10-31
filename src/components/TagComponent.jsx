@@ -7,7 +7,7 @@ export default function TagComponent({ data }) {
     </span>
   ));
   return (
-    <div className="tags-list">
+    <div className="tagComponent-container">
       <div className="url-container">
         <p>{data.pageUrl}</p>
         <button>remove</button>
