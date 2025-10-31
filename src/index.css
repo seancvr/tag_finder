@@ -25,10 +25,11 @@ body {
   /* border: dashed green; */
 }
 
-/* #root {
-  border: dotted maroon;
-} */
-
+/* 
+=====
+HEADER STYLES
+=====
+ */
 header {
   display: flex;
   justify-content: space-between;
@@ -42,7 +43,6 @@ header {
 
 header > h2 {
   margin: 0;
-  /* border: solid orange; */
   font-size: 1rem;
   font-weight: 600;
 }
@@ -52,7 +52,6 @@ header > h2 {
   display: flex;
   justify-content: center;
   gap: 0.5rem;
-  /* border: solid blue; */
 }
 
 .buttons-div > button {
@@ -75,6 +74,48 @@ header > h2 {
 }
 
 .buttons-div > button:active {
+  background-color: #1f2937;
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 
+=====
+TAG LIST STYLES
+=====
+*/
+
+.tags-list {
+  padding-top: 5px;
+}
+
+.url-container {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.url-container > button {
+  font-family: "Roboto", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 4px;
+  border: none;
+  border-radius: 6px;
+  background-color: #374151;
+  color: #fafaf8;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.url-container > button:hover {
+  background-color: #4b5563;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.url-container > button:active {
   background-color: #1f2937;
   transform: translateY(0);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
