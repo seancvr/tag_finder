@@ -1,5 +1,5 @@
 function handleClick() {
-  alert("Scan page button was clicked");
+  alert("Clicked scan page for google tags button");
 }
 
 export default function Header() {
