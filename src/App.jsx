@@ -9,6 +9,7 @@ import { getTagId } from "./utils/parser";
 export default function App() {
   // initalize App state
   const [tagData, setTagData] = useState([]);
+  const [errorPlaceholder, setErrorPlaceholder] = useState("");
 
   const scanPageForGoogleTags = async () => {
     // get the tab object of the active tab on the active browser window
@@ -27,9 +28,7 @@ export default function App() {
 
     // Check for errors in the scriptData
     if (scriptData.error) {
-      document.querySelector(
-        "#script-error"
-      ).textContent = `Error: ${scriptData.error}`;
+      setErrorPlaceholder(`Error: ${scriptData.error}`);
       return;
     }
 
@@ -76,6 +75,7 @@ export default function App() {
     <>
       <Header onScanPage={scanPageForGoogleTags} />
       <main className="tagData-container">{tagComponentList}</main>
+      <div className="error-placeholder">{errorPlaceholder}</div>
     </>
   );
 }
