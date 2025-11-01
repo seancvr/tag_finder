@@ -41,6 +41,9 @@ export default function App() {
     //TODO
 
     // Format useful data as object and
+    // TODO
+    // Add functionality so that UI displays "no tags found"
+    // if gtags list is empty
     const pageData = {
       pageUrl: scriptData.pageUrl,
       gtags: scriptData.srcUrls
