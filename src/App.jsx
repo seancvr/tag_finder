@@ -10,6 +10,7 @@ export default function App() {
   // initalize App state
   const [tagData, setTagData] = useState([]);
   const [errorPlaceholder, setErrorPlaceholder] = useState("");
+  const [unmatchedTags, setUnmatchedTags] = useState([]);
 
   const scanPageForGoogleTags = async () => {
     // get the tab object of the active tab on the active browser window
@@ -39,6 +40,14 @@ export default function App() {
 
     // Catch and store unmatched tag urls
     //TODO
+    setUnmatchedTags((prevUnmatchedTags) => {
+      const newUnmatchedTags = scriptData.srcUrls.filter((url) => {
+        return getTagId(url) === null;
+      });
+      const updatedUnmatchedTags = [...prevUnmatchedTags, ...newUnmatchedTags];
+      storeData("unmatchedTags", updatedUnmatchedTags);
+      return updatedUnmatchedTags;
+    });
 
     // Format useful data as object and
     // TODO
@@ -67,6 +76,9 @@ export default function App() {
       .catch((error) => {
         console.error("Failed to load tagData:", error);
       });
+    getDataFromStorage("unmatchedTags").then((storedData) => {
+      setUnmatchedTags(storedData);
+    });
   }, []); // Empty array means this runs once when component mounts
 
   // map over tagData to render TagComponentList
@@ -78,7 +90,15 @@ export default function App() {
     <>
       <Header onScanPage={scanPageForGoogleTags} />
       <main className="tagData-container">{tagComponentList}</main>
-      <div className="error-placeholder">{errorPlaceholder}</div>
+      {/* Conditional rendering using the logical short-circuting with && */}
+      {errorPlaceholder && (
+        <div className="error-placeholder">{errorPlaceholder}</div>
+      )}
+      {unmatchedTags.length > 0 && (
+        <div className="unmatchedTags-placeholder">
+          <strong>unmatched:</strong> {unmatchedTags}
+        </div>
+      )}
     </>
   );
 }
