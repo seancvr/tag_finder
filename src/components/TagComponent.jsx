@@ -10,7 +10,7 @@ export default function TagComponent({ data }) {
     <div className="tagComponent-container">
       <div className="url-container">
         <p>{data.pageUrl}</p>
-        <button>remove</button>
+        <button>remove entry</button>
       </div>
 
       <p>{linksHtml}</p>
