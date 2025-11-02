@@ -12,6 +12,9 @@ export default function App() {
   const [errorPlaceholder, setErrorPlaceholder] = useState("");
   const [unmatchedTags, setUnmatchedTags] = useState([]);
 
+  // =====
+  // SCAN PAGE FOR GOOGLE TAFS BUTTON
+  // =====
   const scanPageForGoogleTags = async () => {
     // get the tab object of the active tab on the active browser window
     const [tab] = await chrome.tabs.query({
@@ -39,7 +42,6 @@ export default function App() {
     }
 
     // Catch and store unmatched tag urls
-    //TODO
     setUnmatchedTags((prevUnmatchedTags) => {
       const newUnmatchedTags = scriptData.srcUrls.filter((url) => {
         return getTagId(url) === null;
@@ -67,6 +69,18 @@ export default function App() {
     });
   };
 
+  // =====
+  // CLEAR ALL DATA BUTTON
+  // =====
+  const clearAllData = () => {
+    chrome.storage.local.clear();
+    setTagData([]);
+    setUnmatchedTags([]);
+  };
+
+  // =====
+  // RENDER ON MOUNT FUNCTION
+  // =====
   useEffect(() => {
     // get tagData from local storage on component mount
     getDataFromStorage("tagData")
@@ -88,7 +102,7 @@ export default function App() {
 
   return (
     <>
-      <Header onScanPage={scanPageForGoogleTags} />
+      <Header onScanPage={scanPageForGoogleTags} onClearData={clearAllData} />
       <main className="tagData-container">{tagComponentList}</main>
       {/* Conditional rendering using the logical short-circuting with && */}
       {errorPlaceholder && (
