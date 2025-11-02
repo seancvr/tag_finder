@@ -12,7 +12,15 @@ This is a prototype Chrome extension app to demonstrate how [Google tags](https:
 
 ### Usage
 
-**Git clone** the repo, and then follow instructions on the [Google documentation](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world) to load an unpacked extension.
+Clone the repo, install dependencies and run the build command for Vite.
+
+```bash
+git clone https://github.com/seancvr/tag_finder.git
+npm install
+npm run build
+```
+
+and then follow instructions on the [Google documentation](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world) to load an unpacked extension. Note in the case of a Vite + React app it will be the /dist folder you will provide to load the unpacked extension.
 
 <p align="center">
   <img src="pictures/tag_finder_v2_screenshot.png" width="100%" height="50%" title="tag_finder_gui">
