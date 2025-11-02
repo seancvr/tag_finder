@@ -4,7 +4,7 @@ import TagComponent from "./components/TagComponent";
 import { getDataFromStorage, storeData } from "./utils/storage";
 import domScanner from "./content_scripts/domScanner";
 import { getTagId } from "./utils/parser";
-// import { testTagData } from "./testData/tagData";
+import { exportData } from "./utils/export";
 
 export default function App() {
   // initalize App state
@@ -89,6 +89,12 @@ export default function App() {
   };
 
   // =====
+  // EXPORT DATA BUTTON
+  // =====
+  const onExportData = () => {
+    exportData(tagData, "tag-data");
+  };
+  // =====
   // RENDER ON MOUNT FUNCTION
   // =====
   useEffect(() => {
@@ -115,6 +121,7 @@ export default function App() {
       <Header
         onScanPageForGoogleTags={onScanPageForGoogleTags}
         onClearAllData={onClearAllData}
+        onExportData={onExportData}
       />
       <main className="tagData-container">{tagComponentList}</main>
       {/* Conditional rendering using the logical short-circuting with && */}

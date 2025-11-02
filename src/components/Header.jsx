@@ -1,4 +1,8 @@
-export default function Header({ onScanPageForGoogleTags, onClearAllData }) {
+export default function Header({
+  onScanPageForGoogleTags,
+  onClearAllData,
+  onExportData,
+}) {
   return (
     <header>
       <h2>Tag Finder</h2>
@@ -7,7 +11,7 @@ export default function Header({ onScanPageForGoogleTags, onClearAllData }) {
           Scan page for google tags
         </button>
         <button onClick={onClearAllData}>Clear all data</button>
-        <button>Export data</button>
+        <button onClick={onExportData}>Export data</button>
       </div>
     </header>
   );
