@@ -4,10 +4,6 @@
 
 :root {
   font-family: "Roboto", sans-serif;
-  /* line-height: 1.5; */
-
-  /* color-scheme: light dark; */
-  /* color: rgba(255, 255, 255, 0.87); */
   background-color: #fafaf8;
 
   font-synthesis: none;
@@ -22,7 +18,6 @@ body {
   max-width: 620px;
   min-height: 200px;
   padding: 0.5em;
-  /* border: dashed green; */
 }
 
 /* 
@@ -84,7 +79,6 @@ header > h2 {
 TAG LIST STYLES
 =====
 */
-
 .tags-list {
   padding-top: 5px;
 }

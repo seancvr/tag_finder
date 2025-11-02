@@ -94,6 +94,7 @@ export default function App() {
   const onExportData = () => {
     exportData(tagData, "tag-data");
   };
+
   // =====
   // RENDER ON MOUNT FUNCTION
   // =====
