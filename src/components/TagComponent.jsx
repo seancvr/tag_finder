@@ -1,4 +1,4 @@
-export default function TagComponent({ data }) {
+export default function TagComponent({ data, onRemoveEntry }) {
   // render using ternary operator to check if gtags = [] empty array
   const linksHtml =
     data.gtags.length > 0
@@ -10,11 +10,17 @@ export default function TagComponent({ data }) {
           </span>
         ))
       : "No tags found";
+
+  const handleRemove = () => {
+    onRemoveEntry(data.pageUrl);
+  };
   return (
     <div className="tagComponent-container">
       <div className="url-container">
         <p>{data.pageUrl}</p>
-        <button id={data.pageUrl}>remove entry</button>
+        <button id={data.pageUrl} onClick={handleRemove}>
+          remove entry
+        </button>
       </div>
 
       <p>{linksHtml}</p>

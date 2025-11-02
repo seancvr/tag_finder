@@ -13,9 +13,9 @@ export default function App() {
   const [unmatchedTags, setUnmatchedTags] = useState([]);
 
   // =====
-  // SCAN PAGE FOR GOOGLE TAFS BUTTON
+  // SCAN PAGE FOR GOOGLE TAGS BUTTON
   // =====
-  const scanPageForGoogleTags = async () => {
+  const onScanPageForGoogleTags = async () => {
     // get the tab object of the active tab on the active browser window
     const [tab] = await chrome.tabs.query({
       active: true,
@@ -52,9 +52,6 @@ export default function App() {
     });
 
     // Format useful data as object and
-    // TODO
-    // Add functionality so that UI displays "no tags found"
-    // if gtags list is empty
     const pageData = {
       pageUrl: scriptData.pageUrl,
       gtags: scriptData.srcUrls
@@ -72,10 +69,23 @@ export default function App() {
   // =====
   // CLEAR ALL DATA BUTTON
   // =====
-  const clearAllData = () => {
+  const onClearAllData = () => {
     chrome.storage.local.clear();
     setTagData([]);
     setUnmatchedTags([]);
+  };
+
+  // =====
+  // REMOVE ENTRY BUTTON
+  // =====
+  const onRemoveEntry = (pageUrlToRemove) => {
+    setTagData((prevTagData) => {
+      const updatedTagData = prevTagData.filter(
+        (obj) => obj.pageUrl !== pageUrlToRemove
+      );
+      storeData("tagData", updatedTagData);
+      return updatedTagData;
+    });
   };
 
   // =====
@@ -97,12 +107,15 @@ export default function App() {
 
   // map over tagData to render TagComponentList
   const tagComponentList = tagData.map((tagDataItem) => {
-    return <TagComponent data={tagDataItem} />;
+    return <TagComponent data={tagDataItem} onRemoveEntry={onRemoveEntry} />;
   });
 
   return (
     <>
-      <Header onScanPage={scanPageForGoogleTags} onClearData={clearAllData} />
+      <Header
+        onScanPageForGoogleTags={onScanPageForGoogleTags}
+        onClearAllData={onClearAllData}
+      />
       <main className="tagData-container">{tagComponentList}</main>
       {/* Conditional rendering using the logical short-circuting with && */}
       {errorPlaceholder && (
