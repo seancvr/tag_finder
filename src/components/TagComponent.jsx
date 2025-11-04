@@ -6,7 +6,11 @@ export default function TagComponent({ data, onRemoveEntry }) {
     data.gtags.length > 0
       ? data.gtags.map((tagId, index) => (
           <span key={tagId}>
-            <a href={baseUrl + tagId} target="_blank" rel="noopener noreferrer">
+            <a
+              href={`${baseUrl}${tagId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {tagId}
             </a>
             {/* add commas except for the last element of the array */}
