@@ -125,15 +125,15 @@ export default function App() {
         onExportData={onExportData}
       />
       <main className="tagData-container">{tagComponentList}</main>
-      {/* Conditional rendering using the logical short-circuting with && */}
+      {/* Conditional rendering using ternary operator */}
       {errorPlaceholder && (
         <div className="error-placeholder">{errorPlaceholder}</div>
       )}
-      {unmatchedTags.length > 0 && (
+      {unmatchedTags.length > 0 ? (
         <div className="unmatchedTags-placeholder">
           <strong>unmatched:</strong> {unmatchedTags}
         </div>
-      )}
+      ) : null}
     </>
   );
 }
