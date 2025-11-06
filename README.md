@@ -26,6 +26,46 @@ and then follow instructions on the [Google documentation](https://developer.chr
   <img src="pictures/tag_finder_v2_screenshot.png" width="100%" height="50%" title="tag_finder_gui">
 </p>
 
+# Component tree and state hierarchy
+
+Below is a Mermaid flowchart that visualizes the component tree and main App state for the `tag_finder` React app.
+
+```mermaid
+flowchart TD
+  %% Component tree and state hierarchy for tag_finder React app
+  App["App"]:::component
+
+  subgraph AppState["App state (useState)"]
+    tagData["tagData: Array<{ pageUrl, gtags }>"]
+    unmatchedTags["unmatchedTags: Array<string>"]
+    errorPlaceholder["errorPlaceholder: string"]
+  end
+
+  Header["Header\n(props: onScanPageForGoogleTags, onClearAllData, onExportData)"]:::component
+  TagList["<main> tag list\n(renders tagData.map -> TagComponent)"]:::component
+  TagComponent["TagComponent\n(props: data, onRemoveEntry)"]:::component
+
+  App --> AppState
+  App --> Header
+  App --> TagList
+  TagList -->|renders| TagComponent
+  Header -- calls --> App
+  TagComponent -- uses prop --> App
+
+  %% External services and utils
+  Storage["chrome.storage.local (storeData / getDataFromStorage)"]
+  Scripting["chrome.scripting.executeScript -> domScanner (content script)"]
+  Parser["getTagId(url) (parser.js)"]
+  Exporter["exportData (utils/export.js)"]
+
+  App --> Storage
+  App --> Scripting
+  App --> Parser
+  App --> Exporter
+
+  classDef component fill:#f3f4f6,stroke:#111827,stroke-width:1px,rx:6,ry:6,color:#1a202c
+```
+
 ### Possible improvements
 
 This is just a simple prototype for demo purposes, but possible future improvements could include:
