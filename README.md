@@ -71,7 +71,7 @@ flowchart TD
 This is just a simple prototype for demo purposes, but possible future improvements could include:
 
 1. **Performance & state management**:
-   Currently, multiple state updates are causing unnecessary re-renders. A solution could be to batch the states with React's useReducer.
+   Currently state is passed through props down the component tree. This could be better handled using the built in useContext hook in React or a state management tool like Redux.
 2. **Type safety and validation**:
    Could add better type safety with TypeScript or PropTypes.
 3. **Code structure and logic separation**:
