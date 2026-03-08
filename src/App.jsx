@@ -124,6 +124,7 @@ export default function App() {
         onClearAllData={onClearAllData}
         onExportData={onExportData}
       />
+      <hr />
       <main className="tagData-container">{tagComponentList}</main>
       {/* Conditional rendering using ternary operator */}
       {errorPlaceholder && (

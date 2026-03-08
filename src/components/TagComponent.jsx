@@ -25,7 +25,7 @@ export default function TagComponent({ data, onRemoveEntry }) {
   return (
     <div className="tagComponent-container">
       <div className="url-container">
-        <p>{data.pageUrl}</p>
+        <p><strong>{data.pageUrl}</strong></p>
         <button id={data.pageUrl} onClick={handleRemove}>
           remove entry
         </button>
