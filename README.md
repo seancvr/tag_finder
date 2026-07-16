@@ -20,7 +20,16 @@ npm install
 npm run build
 ```
 
-and then follow instructions on the [Google documentation](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world) to load an unpacked extension. Note in the case of a Vite + React app it will be the /dist folder you will provide to load the unpacked extension.
+This will generate a `/dist` folder containing the built extension (JS/CSS, `manifest.json`, and icons).
+
+To load it into Chrome:
+
+1. Go to `chrome://extensions`
+2. Enable **Developer mode** (toggle in the top right)
+3. Click **Load unpacked**
+4. Select the `/dist` folder (not the project root or `/src`)
+
+See the [Google documentation](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world) for more details on loading unpacked extensions. Note that `/dist` is not committed to the repo — you must run `npm run build` first to generate it.
 
 <p align="center">
   <img src="pictures/tag_finder_v2_screenshot.png" width="100%" height="50%" title="tag_finder_gui">
